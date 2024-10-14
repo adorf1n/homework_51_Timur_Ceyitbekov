@@ -38,6 +38,7 @@
                         <a asp-action="RedirectToManufacturer" asp-controller="Phones" asp-route-company="@phone.Company">Перейти на сайт производителя</a>
 
                     </td>
+                    <td><a asp-action="Edit" asp-route-id="@phone.Id" class="btn btn-warning">Редактировать</a></td>
                     <td><a asp-action="Delete" asp-route-id="@phone.Id" onclick="return confirm('Вы уверены, что хотите удалить этот телефон?');">Удалить</a></td>
                 </tr>
             }

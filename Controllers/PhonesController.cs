@@ -93,14 +93,26 @@ public class PhonesController : Controller
         {
             return NotFound();
         }
-        return View(phone);
+        return View(phone); 
     }
 
     [HttpPost]
     public IActionResult Edit(Phone phone)
     {
+
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error.ErrorMessage); 
+            }
+            return View(phone);
+        }
+
         if (ModelState.IsValid)
         {
+
             var existingPhone = _db.Phones.FirstOrDefault(p => p.Id == phone.Id);
             if (existingPhone == null)
             {
@@ -112,9 +124,9 @@ public class PhonesController : Controller
             existingPhone.Price = phone.Price;
 
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index"); 
         }
-        return View(phone);
+        return View(phone); 
     }
 
     public IActionResult Delete(int id)
